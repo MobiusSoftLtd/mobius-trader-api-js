@@ -1,0 +1,14 @@
+{
+  "name": "mobius-trader-api",
+  "version": "1.0.0",
+  "description": "MobiusTrader 7 API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mobius Soft Ltd.",
+  "license": "ISC",
+  "dependencies": {
+    "jayson": "^2.1.2"
+  }
+}
