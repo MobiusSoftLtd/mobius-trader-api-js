@@ -1,9 +1,14 @@
 # MobiusTrader 7 JS API 
 
+# Install
 
+```bash
+npm install mobius-trader-api --save
+```
+
+# Usage
 ```javascript
-
-const MobiusTrader = require('mobius-trader-api');
+const MobiusTrader = require('mobius-trader-api'); // No ES6
 
 const config = {
   host: 'mt7.example.com',
