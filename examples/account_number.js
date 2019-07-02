@@ -4,7 +4,10 @@ const config = require('./config');
 
 const mt7 = new MobiusTrader(config);
 
-mt7.init().then(async () => {
+(async () => {
+  // Initialization of work with API
+  await mt7.init();
+
   const accountNumberId = 1156587;
 
   try {
@@ -13,4 +16,4 @@ mt7.init().then(async () => {
   } catch (e) {
     console.error(e);
   }
-});
+})();

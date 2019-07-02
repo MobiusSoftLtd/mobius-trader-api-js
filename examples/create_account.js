@@ -4,24 +4,22 @@ const config = require('./config');
 const mt7 = new MobiusTrader(config);
 
 mt7.init().then(async () => {
-  const email = 'test2@mobius-soft.org';
+  const email = 'test222@mobius-soft.org';
   const name = 'Test';
   const password = 'test111';
+  const withdrawPassword = 'test222';
 
   try {
+    // Create account
     const account = await mt7.createAccount(email, name);
+
+    // Set trader password
     await mt7.passwordSet(account.Id, email, password);
 
-    const accountNumber = await mt7.createAccountNumber(
-      MobiusTrader.AccountNumberType.REAL,
-      account.Id,
-      100,
-      'USD',
-      'Dollar',
-      ['USD']
-    );
+    // Set a password for withdrawal
+    await mt7.withdrawPasswordSet(account.Id, withdrawPassword);
 
-    console.log(account, accountNumber);
+    console.log(account);
   } catch (e) {
     console.error(e);
   }
