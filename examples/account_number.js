@@ -1,19 +1,18 @@
-
 const MobiusTrader = require('../');
 const config = require('./config');
 
-const mt7 = new MobiusTrader(config);
-
-(async () => {
-  // Initialization of work with API
-  await mt7.init();
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
 
   const accountNumberId = 1156587;
 
   try {
     const info = await mt7.getAccountNumber(accountNumberId);
-    console.log(info);
+
+    mt7.log(info);
   } catch (e) {
     console.error(e);
   }
-})();
+}
+
+run();

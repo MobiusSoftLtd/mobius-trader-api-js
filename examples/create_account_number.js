@@ -1,9 +1,9 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-const mt7 = new MobiusTrader(config);
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
 
-mt7.init().then(async () => {
   const accountId = 267987;
   const leverage = 100;
   const settingsTemplate = 'USD';
@@ -20,8 +20,10 @@ mt7.init().then(async () => {
       tags
     );
 
-    console.log(accountNumber);
+    mt7.log(accountNumber);
   } catch (e) {
     console.error(e);
   }
-});
+}
+
+run();

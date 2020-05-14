@@ -1,9 +1,8 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-(async () => {
-  const mt7 = new MobiusTrader(config);
-  await mt7.init();
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
 
   const login = 'test@test.ru';
   const password = 'test123';
@@ -13,8 +12,10 @@ const config = require('./config');
   try {
     const jwt = await mt7.traderAuth(login, password, clientIP, userAgent);
 
-    console.log(jwt);
+    mt7.log(jwt);
   } catch (e) {
     console.error('Error:', e);
   }
-})();
+}
+
+run();

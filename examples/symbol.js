@@ -1,11 +1,14 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-const mt7 = new MobiusTrader(config);
-mt7.init().then(() => {
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
+
   const symbolByName = mt7.getSymbol('BTCUSD');
-  console.log(symbolByName);
+  mt7.log(symbolByName);
 
   const symbolById = mt7.getSymbol(2);
-  console.log(symbolById);
-});
+  mt7.log(symbolById);
+}
+
+run();

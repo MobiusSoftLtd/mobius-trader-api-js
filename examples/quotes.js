@@ -1,11 +1,8 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-const mt7 = new MobiusTrader(config);
-
-(async () => {
-  // Initialization of work with API
-  await mt7.init();
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
 
   // Array of symbols
   const symbols = ['BTCUSD', 'ETHUSD'];
@@ -13,8 +10,10 @@ const mt7 = new MobiusTrader(config);
   // Get quotes for symbols
   const quotes = await mt7.getQuotes(symbols);
 
-  console.log(quotes);
-})();
+  mt7.log(quotes);
+}
+
+run();
 
 /**
 Response:

@@ -1,8 +1,12 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-const mt7 = new MobiusTrader(config);
-mt7.init().then(() => {
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
+
   const currencies = mt7.getCurrencies();
-  console.log(currencies);
-});
+
+  mt7.log(currencies);
+}
+
+run();

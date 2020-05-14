@@ -1,9 +1,10 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-const mt7 = new MobiusTrader(config);
-mt7.init().then(() => {
-  mt7.searchArray([
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
+
+  const orders = (await mt7.searchArray([
     'AccountNumbers.CurrencyId',
     'Ticket',
     'OpenTime',
@@ -16,7 +17,7 @@ mt7.init().then(() => {
     'Commission',
     'Swap',
   ])
-    .from(mt7.fromOrders())
+    .from(MobiusTrader.SEARCH_CONTEXT.Orders)
     .where('AccountNumberId', '=', 1)
     .andWhere('CloseTime', '=', 0)
     .andWhere('TradeCmd', 'IN', [
@@ -26,20 +27,27 @@ mt7.init().then(() => {
     .limit(10)
     .offset(0)
     .orderBy('Ticket', 'DESC')
-    .execute().then(response => {
+    .execute())
+    .asArray()
+    .map(({
+            'AccountNumbers.CurrencyId': currencyId,
+            SymbolId,
+            OpenPrice,
+            Profit,
+            Commission,
+            Volume,
+            ...order
+          }) => ({
+      ...order,
+      SymbolId,
+      CurrencyId: currencyId,
+      OpenPrice: mt7.priceFromInt(SymbolId, OpenPrice),
+      Profit: mt7.depositFromInt(currencyId, Profit),
+      Commission: mt7.depositFromInt(currencyId, Commission),
+      Volume: mt7.volumeFromInt(SymbolId, Volume),
+    }));
 
-    const orders = response.asArray();
+  mt7.log(orders);
+}
 
-    for (const order of orders) {
-      const symbolId = order['SymbolId'];
-      const currencyId = order['AccountNumbers.CurrencyId'];
-
-      order['OpenPrice'] = mt7.priceFromInt(symbolId, order['OpenPrice']);
-      order['Profit'] = mt7.depositFromInt(currencyId, order['Profit']);
-      order['Commission'] = mt7.depositFromInt(currencyId, order['Commission']);
-      order['Volume'] = mt7.volumeFromInt(symbolId, order['Volume']);
-    }
-
-    console.log(orders);
-  });
-});
+run();

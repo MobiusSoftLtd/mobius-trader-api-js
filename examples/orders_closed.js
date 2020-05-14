@@ -1,9 +1,10 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-const mt7 = new MobiusTrader(config);
-mt7.init().then(() => {
-  mt7.searchArray([
+async function run() {
+  const mt7 = await MobiusTrader.getInstance(config);
+
+  const response = await mt7.search(
     'AccountNumbers.CurrencyId',
     'Ticket',
     'OpenTime',
@@ -16,8 +17,9 @@ mt7.init().then(() => {
     'Profit',
     'Commission',
     'Swap',
-  ])
-    .from(mt7.fromOrders())
+    [mt7.expr('Profit+Commission+Swap'), 'TotalProfit']
+  )
+    .from(MobiusTrader.SEARCH_CONTEXT.Orders)
     .where('AccountNumberId', '=', 1)
     .andWhere('CloseTime', '>', 0)
     .andWhere('TradeCmd', 'IN', [
@@ -27,21 +29,37 @@ mt7.init().then(() => {
     .limit(10)
     .offset(0)
     .orderBy('Ticket', 'DESC')
-    .execute().then(response => {
+    .execute();
 
-    const orders = response.asArray();
+  const orders = response.asArray();
 
-    for (const order of orders) {
-      const symbolId = order['SymbolId'];
-      const currencyId = order['AccountNumbers.CurrencyId'];
+  const ordersReal = orders.map(({
+            'AccountNumbers.CurrencyId': currencyId,
+            SymbolId,
+            OpenPrice,
+            ClosePrice,
+            Profit,
+            Commission,
+            Volume,
+            ...order
+          }) => ({
+      ...order,
+      SymbolId,
+      CurrencyId: currencyId,
+      OpenPrice: mt7.priceFromInt(SymbolId, OpenPrice),
+      ClosePrice: mt7.priceFromInt(SymbolId, ClosePrice),
+      Profit: mt7.depositFromInt(currencyId, Profit),
+      Commission: mt7.depositFromInt(currencyId, Commission),
+      Volume: mt7.volumeFromInt(SymbolId, Volume),
+    }));
 
-      order['OpenPrice'] = mt7.priceFromInt(symbolId, order['OpenPrice']);
-      order['ClosePrice'] = mt7.priceFromInt(symbolId, order['ClosePrice']);
-      order['Profit'] = mt7.depositFromInt(currencyId, order['Profit']);
-      order['Commission'] = mt7.depositFromInt(currencyId, order['Commission']);
-      order['Volume'] = mt7.volumeFromInt(symbolId, order['Volume']);
-    }
+  const tickets = response.asArray('Ticket');
+  const mapByTicket = response.asMap('Ticket');
+  const mapProfits = response.asMap('Ticket', 'Profit');
+  const first = response.first();
 
-    console.log(orders);
-  });
-});
+
+  mt7.log(orders, ordersReal, tickets, mapByTicket, mapProfits, first);
+}
+
+run();
