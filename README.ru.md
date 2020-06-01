@@ -21,7 +21,6 @@ const config = {
     port: 3003,
     brokerId: 123456,
     password: 'api_password',
-    terminalURL: 'https://mt7.example.com/',
 };
 
 async function run() {

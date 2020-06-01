@@ -3,5 +3,4 @@ module.exports = {
   port: 8008,
   brokerId: 1,
   password: 'P*18#xgbb%23',
-  terminalURL: 'https://mt7.example.com/',
 };
