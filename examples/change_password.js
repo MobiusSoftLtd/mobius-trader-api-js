@@ -26,7 +26,7 @@ async function run() {
 
     await mt7.passwordSet(accountId, email, newPassword);
 
-    console.log('Password changed')
+    console.log('Password changed');
   } catch (e) {
     console.log('err', e.Key || e.message);
   }

@@ -20,6 +20,18 @@ async function run() {
       tags
     );
 
+/*
+    // Create an account number using the universal "call" method
+    const account = await mt7.call('AccountNumberCreate', {
+      AccountId: Number(accountId),
+      Leverage: Number(leverage),
+      SettingsTemplate: settingsTemplate,
+      DisplayName: displayName,
+      Tags: tags,
+      Type: MobiusTrader.AccountNumberType.REAL,
+    });
+*/
+
     mt7.log(accountNumber);
   } catch (e) {
     console.error(e);
