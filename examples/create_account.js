@@ -17,6 +17,9 @@ async function run() {
   const zipCode = '123456';
   const state = 'Moscow';
   const comment = '';
+  const agentTag = 'tag';
+  const ip = '11.22.33.44';
+  const userAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0';
 
   try {
     // Create account
@@ -31,7 +34,10 @@ async function run() {
       zipCode,
       state,
       comment,
-      lastName
+      lastName,
+      agentTag,
+      ip,
+      userAgent
     );
 
 /*
