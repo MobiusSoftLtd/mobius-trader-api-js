@@ -42,6 +42,8 @@ run();
 # Available JSON-RPC API Methods
 | [English](https://docs.google.com/document/d/1rq2K18d455C0p8a9xXwv-KZowiVARTFTmS7R9avm1m8/edit) | [Русский](https://docs.google.com/document/d/17I06cT9A_PX_89URFOUXlu3oBYdm3sYHMvRtEx6gAOA/edit) |
 
+**This library is just a wrapper for the methods described in the documentation.**
+
 All methods described in the documentation can be called using the **call()** method:
 ```javascript
 const account = await mt7.call('AccountGet', {

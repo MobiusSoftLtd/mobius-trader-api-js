@@ -1,13 +1,12 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-async function run() {
-  const mt7 = await MobiusTrader.getInstance(config);
-
-  const accountNumberId = 1156587;
-  const symbolId = 1;
-
+(async () => {
   try {
+    const mt7 = await MobiusTrader.getInstance(config);
+
+    const accountNumberId = 1156587;
+    const symbolId = 1;
 
     let order = await mt7.orderOpen(
       accountNumberId,
@@ -26,6 +25,4 @@ async function run() {
   } catch (e) {
     console.error(e);
   }
-}
-
-run();
+})();

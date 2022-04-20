@@ -1,16 +1,16 @@
 const MobiusTrader = require('../');
 const config = require('./config');
 
-async function run() {
-  const email = 'test2@mobius-soft.org';
-  const currentPassword = 'test111';
-  const newPassword = 'test222';
-
-  const mt7 = await MobiusTrader.getInstance(config);
-
+(async () => {
   try {
+    const email = 'test2@mobius-soft.org';
+    const currentPassword = 'test111';
+    const newPassword = 'test222';
+
+    const mt7 = await MobiusTrader.getInstance(config);
+
     // If the password is incorrect, an error will throw
-    await mt7.passwordCheck(email, currentPassword);
+    await mt7.traderPasswordCheck(email, currentPassword);
 
     const accountId = (
       await mt7.search('Id')
@@ -24,12 +24,10 @@ async function run() {
       throw new Error('AccountNotFound');
     }
 
-    await mt7.passwordSet(accountId, email, newPassword);
+    await mt7.traderPasswordSet(accountId, email, newPassword);
 
     console.log('Password changed');
   } catch (e) {
-    console.log('err', e.Key || e.message);
+    console.error(e);
   }
-}
-
-run();
+})();

@@ -1,6 +1,6 @@
 # MobiusTrader 7 JavaScript Manager API
 
-| [English](README.md) | [Русский](README.ru.md) | 
+| [English](README.md) | [Русский](README.ru.md) |
 
 # Установка
 
@@ -41,6 +41,8 @@ run();
 
 # Доступные JSON-RPC методы API
 | [English](https://docs.google.com/document/d/1rq2K18d455C0p8a9xXwv-KZowiVARTFTmS7R9avm1m8/edit) | [Русский](https://docs.google.com/document/d/17I06cT9A_PX_89URFOUXlu3oBYdm3sYHMvRtEx6gAOA/edit) |
+
+**Данная библиотека это только обертка на методы, описанные в документации.**
 
 Все методы, описанные в документации можно вызывать при помощи метода **call()**:
 ```javascript
