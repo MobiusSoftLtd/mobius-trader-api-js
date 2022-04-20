@@ -3,6 +3,11 @@
   "version": "1.0.12",
   "description": "MobiusTrader 7 API",
   "main": "index.js",
+  "homepage": "https://github.com/MobiusSoftLtd/mobius-trader-api-js#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MobiusSoftLtd/mobius-trader-api-js.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,5 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "jayson": "^3.6.6"
-  }
+  },
+  "keywords": [
+    "mobius-trader",
+    "mt7"
+  ]
 }
