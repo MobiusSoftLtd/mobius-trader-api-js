@@ -8,20 +8,23 @@ const config = require('./config');
     const accountNumberId = 1156587;
     const symbolId = 1;
 
-    let order = await mt7.orderOpen(
-      accountNumberId,
-      symbolId,
-      mt7.volumeToInt(symbolId, 0.001),
-      MobiusTrader.TradeCmd.SELL
-    );
+    const orderOpen = await mt7.call('AdminOpenOrder', {
+      AccountNumberId: accountNumberId,
+      SymbolId: symbolId,
+      Volume: mt7.volumeToInt(symbolId, 0.001),
+      TradeCmd: MobiusTrader.TradeCmd.SELL,
+    })
 
-    order = await mt7.orderModify(order.Ticket, {
-      Comment: 'Test ' + Date.now(),
+    await mt7.call('AdminModifyOrder', {
+      Ticket: orderOpen.Ticket,
+      Comment: `Test ${Date.now()}`,
     });
 
-    const response = await mt7.orderClose(order.Ticket);
+    const response = await mt7.call('AdminCloseOrder', {
+      Ticket: orderOpen.Ticket,
+    });
 
-    mt7.log(order, response);
+    mt7.log(orderOpen.Ticket, response);
   } catch (e) {
     console.error(e);
   }

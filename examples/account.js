@@ -8,7 +8,9 @@ const config = require('./config');
     const accountId = 267987;
 
     // Get an account info
-    const info = await mt7.getAccount(accountId);
+    const info = await mt7.call('AccountGet', {
+      Id: accountId
+    });
 
     mt7.log(info);
   } catch (e) {

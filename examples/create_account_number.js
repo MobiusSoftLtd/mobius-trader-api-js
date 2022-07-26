@@ -11,26 +11,14 @@ const config = require('./config');
     const displayName = 'Dollar';
     const tags = ['USD'];
 
-    const accountNumber = await mt7.createAccountNumber(
-      MobiusTrader.AccountNumberType.REAL,
-      accountId,
-      leverage,
-      settingsTemplate,
-      displayName,
-      tags
-    );
-
-/*
-    // Create an account number using the universal "call" method
-    const account = await mt7.call('AccountNumberCreate', {
-      AccountId: Number(accountId),
-      Leverage: Number(leverage),
+    const accountNumber = await mt7.call('AccountNumberCreate', {
+      AccountId: accountId,
+      Leverage: leverage,
       SettingsTemplate: settingsTemplate,
       DisplayName: displayName,
       Tags: tags,
       Type: MobiusTrader.AccountNumberType.REAL,
-    });
-*/
+    })
 
     mt7.log(accountNumber);
   } catch (e) {

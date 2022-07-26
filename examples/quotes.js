@@ -9,7 +9,9 @@ const config = require('./config');
     const symbols = ['BTCUSD', 'ETHUSD'];
 
     // Get quotes for symbols
-    const quotes = await mt7.getQuotes(symbols);
+    const quotes = await mt7.call('SymbolQuotesGet', {
+      'Symbols': symbols
+    });
 
     mt7.log(quotes);
   } catch (e) {

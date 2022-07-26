@@ -11,7 +11,11 @@ const config = require('./config');
 
 
     try {
-      const right = await mt7.traderPasswordCheck(email, traderPassword);
+      const right = await mt7.call('PasswordCheck', {
+        Login: email,
+        Password: traderPassword,
+        SessionType: MobiusTrader.SessionType.TRADER,
+      });
       mt7.log('Trader: Right', right);
     } catch (e) {
       mt7.log('Trader: Wrong', e);
@@ -22,7 +26,11 @@ const config = require('./config');
     const withdrawPassword = 'test222';
 
     try {
-      const right = await mt7.withdrawPasswordCheck(accountId, withdrawPassword);
+      const right = await mt7.call('PasswordCheck', {
+        Login: accountId,
+        Password: withdrawPassword,
+        SessionType: MobiusTrader.SessionType.WITHDRAW,
+      });
       mt7.log('Withdraw: Right', right);
     } catch (e) {
       mt7.log('Withdraw: Wrong', e);

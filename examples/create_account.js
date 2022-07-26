@@ -21,27 +21,9 @@ const config = require('./config');
     const agentTag = 'tag';
     const ip = '11.22.33.44';
     const userAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0';
+    const lang = 'en';
 
     // Create account
-    const account = await mt7.createAccount(
-      email,
-      name,
-      agentAccount,
-      country,
-      city,
-      address,
-      phone,
-      zipCode,
-      state,
-      comment,
-      lastName,
-      agentTag,
-      ip,
-      userAgent
-    );
-
-/*
-    // Create an account using the universal "call" method
     const account = await mt7.call('AccountCreate', {
       Name: name,
       LastName: lastName,
@@ -54,14 +36,27 @@ const config = require('./config');
       ZipCode: zipCode,
       Address: address,
       Comment: comment,
+      AgentTag: agentTag,
+      IP: ip,
+      UserAgent: userAgent,
+      Lang: lang,
     });
-*/
 
     // Set trader password
-    await mt7.passwordSet(account.Id, email, password);
+    await mt7.call('PasswordSet', {
+      AccountId: account.Id,
+      Login: email,
+      Password: password,
+      SessionType: MobiusTrader.SessionType.TRADER,
+    });
 
     // Set a password for withdrawal
-    await mt7.withdrawPasswordSet(account.Id, withdrawPassword);
+    await mt7.call('PasswordSet', {
+      AccountId: account.Id,
+      Login: account.Id,
+      Password: withdrawPassword,
+      SessionType: MobiusTrader.SessionType.WITHDRAW,
+    });
 
     mt7.log(account);
   } catch (e) {

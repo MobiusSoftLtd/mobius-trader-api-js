@@ -29,7 +29,9 @@ async function run() {
     const accountId = 123;
     
     try {
-        const info = await mt7.getAccount(accountId);
+        const info = await mt7.call('AccountGet', {
+          Id: accountId
+        });
         console.log(info);
     } catch (e) {
         console.error(e);
