@@ -1,4 +1,4 @@
 module.exports = {
-  brokerId: 1,
-  password: 'BrokerPassword',
+  brokerId: 123456,
+  password: '',
 };

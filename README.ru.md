@@ -17,8 +17,6 @@ yarn add mobius-trader-api
 const MobiusTrader = require('mobius-trader-api');
 
 const config = {
-    host: 'mt7.example.com',
-    port: 3003,
     brokerId: 123456,
     password: 'api_password',
 };
