@@ -7,7 +7,9 @@ const config = require('./config');
 
     const accountNumberId = 1156587;
 
-    const moneyInfo = await mt7.moneyInfo(accountNumberId);
+    const currency = 'USD';
+
+    const moneyInfo = await mt7.moneyInfo(accountNumberId, currency);
 
     mt7.log(moneyInfo);
   } catch (e) {
