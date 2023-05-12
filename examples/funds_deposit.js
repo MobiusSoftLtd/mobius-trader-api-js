@@ -5,11 +5,11 @@ const config = require('./config');
   try {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountNumberId = 1156587;
+    const tradingAccountId = 1156587;
 
     const balanceTicket = await mt7.fundsDeposit(
       'USD',
-      accountNumberId,
+      tradingAccountId,
       1,
       'YM',
       '12345678912345'

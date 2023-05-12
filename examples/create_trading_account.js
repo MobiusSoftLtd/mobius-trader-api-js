@@ -5,22 +5,22 @@ const config = require('./config');
   try {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountId = 267987;
+    const clientId = 267987;
     const leverage = 100;
     const settingsTemplate = 'USD';
     const displayName = 'Dollar';
     const tags = ['USD'];
 
-    const accountNumber = await mt7.call('AccountNumberCreate', {
-      AccountId: accountId,
+    const tradingAccount = await mt7.call('TradingAccountCreate', {
+      ClientId: clientId,
       Leverage: leverage,
       SettingsTemplate: settingsTemplate,
       DisplayName: displayName,
       Tags: tags,
-      Type: MobiusTrader.AccountNumberType.REAL,
+      Type: MobiusTrader.TradingAccountType.REAL,
     })
 
-    mt7.log(accountNumber);
+    mt7.log(tradingAccount);
   } catch (e) {
     console.error(e);
   }

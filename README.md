@@ -14,7 +14,7 @@ yarn add mobius-trader-api
 
 # Usage
 ```javascript
-const MobiusTrader = require('mobius-trader-api');
+import MobiusTrader from 'mobius-trader-api';
 
 const config = {
     brokerId: 123456,
@@ -24,11 +24,11 @@ const config = {
 async function run() {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountId = 123;
+    const clientId = 123;
     
     try {
-        const info = await mt7.call('AccountGet', {
-          Id: accountId
+        const info = await mt7.call('ClientGet', {
+          Id: clientId
         });
         console.log(info);
     } catch (e) {
@@ -46,19 +46,19 @@ run();
 
 All methods described in the documentation can be called using the **call()** method:
 ```javascript
-const account = await mt7.call('AccountGet', {
-  'Id': accountId,
+const client = await mt7.call('ClientGet', {
+  'Id': clientId,
 });
 ```
 
 # Search
 For search, a universal **Search** method is implemented, which is very similar to SQL:
 ```javascript
-const accountNumbers = await mt7.call('Search',{
-    Context: 'AccountNumbers', 
+const tradingAccounts = await mt7.call('Search',{
+    Context: 'TradingAccounts', 
     Select: ['Id'], 
     Where: [
-        'AccountId', '=', accountId, 'AND', 
+        'ClientId', '=', clientId, 'AND', 
         'CurrencyId', '=', 23
     ], 
     Limit: 10,
@@ -68,7 +68,7 @@ const accountNumbers = await mt7.call('Search',{
 });
 ```
 Fields:
- - **Context** - What data needs to be found. Available options: Accounts, AccountNumbers, Orders, BinaryOptions
+ - **Context** - What data needs to be found. Available options: Clients, TradingAccounts, Orders, BinaryOptions
  - **Select** - List of fields to be returned
  - **Where** - Search conditions
  - **SortBy** - Sort field
@@ -99,7 +99,7 @@ const response = await mt7.search(
     [mt7.expr('Profit + Commission + Swap'), 'TotalProfit']
   )
     .from(MobiusTrader.SEARCH_CONTEXT.Orders)
-    .where('AccountNumberId', '=', 123)
+    .where('TradingAccountId', '=', 123)
     .andWhere('CloseTime', '>', 0)
     .andWhere('TradeCmd', 'IN', [
       MobiusTrader.TradeCmd.BUY,

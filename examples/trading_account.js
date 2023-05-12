@@ -5,11 +5,10 @@ const config = require('./config');
   try {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountId = 267987;
+    const tradingAccountId = 1156587;
 
-    // Get an account info
-    const info = await mt7.call('AccountGet', {
-      Id: accountId
+    const info = await mt7.call('TradingAccountGet', {
+      Id: tradingAccountId
     });
 
     mt7.log(info);

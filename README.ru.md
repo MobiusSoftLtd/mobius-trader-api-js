@@ -14,7 +14,7 @@ yarn add mobius-trader-api
 
 # Использование
 ```javascript
-const MobiusTrader = require('mobius-trader-api');
+import MobiusTrader from 'mobius-trader-api';
 
 const config = {
     brokerId: 123456,
@@ -24,11 +24,11 @@ const config = {
 async function run() {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountId = 123;
+    const clientId = 123;
     
     try {
-        const info = await mt7.call('AccountGet', {
-          Id: accountId
+        const info = await mt7.call('ClientGet', {
+          Id: clientId
         });
         console.log(info);
     } catch (e) {
@@ -46,19 +46,19 @@ run();
 
 Все методы, описанные в документации можно вызывать при помощи метода **call()**:
 ```javascript
-const account = await mt7.call('AccountGet', {
-  'Id': accountId,
+const client = await mt7.call('ClientGet', {
+  'Id': clientId,
 });
 ```
 
 # Поиск
 Для поиска реализован универсальный метод **Search**, который очень похож на SQL:
 ```javascript
-const accountNumbers = await mt7.call('Search',{
-    Context: 'AccountNumbers', 
+const tradingAccounts = await mt7.call('Search',{
+    Context: 'TradingAccounts', 
     Select: ['Id'], 
     Where: [
-        'AccountId', '=', accountId, 'AND', 
+        'ClientId', '=', clientId, 'AND', 
         'CurrencyId', '=', 23
     ], 
     Limit: 10,
@@ -68,7 +68,7 @@ const accountNumbers = await mt7.call('Search',{
 });
 ```
 Тут:
- - **Context** - Какие данные нужно получить. Доступные варианты: Accounts, AccountNumbers, Orders, BinaryOptions
+ - **Context** - Какие данные нужно получить. Доступные варианты: Accounts, TradingAccounts, Orders, BinaryOptions
  - **Select** - Список полей, которые необходимо вернуть
  - **Where** - Условия поиска
  - **SortBy** - Поле для сортировки
@@ -99,7 +99,7 @@ const response = await mt7.search(
     [mt7.expr('Profit + Commission + Swap'), 'TotalProfit']
   )
     .from(MobiusTrader.SEARCH_CONTEXT.Orders)
-    .where('AccountNumberId', '=', 123)
+    .where('TradingAccountId', '=', 123)
     .andWhere('CloseTime', '>', 0)
     .andWhere('TradeCmd', 'IN', [
       MobiusTrader.TradeCmd.BUY,

@@ -22,12 +22,12 @@ const config = require('./config');
     }
 
     // Withdraw password
-    const accountId = 123;
+    const clientId = 123;
     const withdrawPassword = 'test222';
 
     try {
       const right = await mt7.call('PasswordCheck', {
-        Login: accountId,
+        Login: clientId,
         Password: withdrawPassword,
         SessionType: MobiusTrader.SessionType.WITHDRAW,
       });

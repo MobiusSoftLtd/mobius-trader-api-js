@@ -7,10 +7,10 @@ const config = require('./config');
 
     const email = 'test222@mobius-soft.org';
     const name = 'Test';
-    const lastName = 'Account';
+    const lastName = 'Client';
     const password = 'test111';
     const withdrawPassword = 'test222';
-    const agentAccount = null;
+    const agentClient = null;
     const country = 'Russia';
     const city = 'Moscow';
     const address = 'Street';
@@ -23,12 +23,12 @@ const config = require('./config');
     const userAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0';
     const lang = 'en';
 
-    // Create account
-    const account = await mt7.call('AccountCreate', {
+    // Create client
+    const client = await mt7.call('ClientCreate', {
       Name: name,
       LastName: lastName,
       Email: email,
-      AgentAccount: agentAccount,
+      AgentClient: agentClient,
       Country: country,
       City: city,
       Phone: phone,
@@ -44,7 +44,7 @@ const config = require('./config');
 
     // Set trader password
     await mt7.call('PasswordSet', {
-      AccountId: account.Id,
+      ClientId: client.Id,
       Login: email,
       Password: password,
       SessionType: MobiusTrader.SessionType.TRADER,
@@ -52,13 +52,13 @@ const config = require('./config');
 
     // Set a password for withdrawal
     await mt7.call('PasswordSet', {
-      AccountId: account.Id,
-      Login: account.Id,
+      ClientId: client.Id,
+      Login: client.Id,
       Password: withdrawPassword,
       SessionType: MobiusTrader.SessionType.WITHDRAW,
     });
 
-    mt7.log(account);
+    mt7.log(client);
   } catch (e) {
     console.error(e);
   }

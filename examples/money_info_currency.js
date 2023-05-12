@@ -5,9 +5,9 @@ const config = require('./config');
   try {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountNumberId = 1156587;
+    const tradingAccountId = 1156587;
 
-    const moneyInfo = await mt7.moneyInfo(accountNumberId, 'BTC');
+    const moneyInfo = await mt7.moneyInfo(tradingAccountId, 'BTC');
 
     mt7.log(moneyInfo);
   } catch (e) {

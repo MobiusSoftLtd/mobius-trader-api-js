@@ -5,11 +5,11 @@ const config = require('./config');
   try {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountNumberId = 1156587;
+    const tradingAccountId = 1156587;
     const symbolId = 1;
 
     const orderOpen = await mt7.call('AdminOpenOrder', {
-      AccountNumberId: accountNumberId,
+      TradingAccountId: tradingAccountId,
       SymbolId: symbolId,
       Volume: mt7.volumeToInt(symbolId, 0.001),
       TradeCmd: MobiusTrader.TradeCmd.SELL,

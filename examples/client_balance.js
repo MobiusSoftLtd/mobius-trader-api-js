@@ -5,14 +5,14 @@ const config = require('./config');
   try {
     const mt7 = await MobiusTrader.getInstance(config);
 
-    const accountNumberId = 1156587;
+    const clientId = 267987;
+    const currency = 'USD';
 
-    const info = await mt7.call('AccountNumberGet', {
-      Id: accountNumberId
-    });
+    const balance = await mt7.getClientBalance(clientId, currency);
 
-    mt7.log(info);
+    mt7.log(`${balance} ${currency}`);
   } catch (e) {
     console.error(e);
   }
 })();
+

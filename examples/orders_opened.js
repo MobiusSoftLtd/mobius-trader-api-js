@@ -6,7 +6,7 @@ const config = require('./config');
     const mt7 = await MobiusTrader.getInstance(config);
 
     const orders = (await mt7.searchArray([
-      'AccountNumbers.CurrencyId',
+      'TradingAccounts.CurrencyId',
       'Ticket',
       'OpenTime',
       'OpenTime',
@@ -19,7 +19,7 @@ const config = require('./config');
       'Swap',
     ])
       .from(MobiusTrader.SEARCH_CONTEXT.Orders)
-      .where('AccountNumberId', '=', 1)
+      .where('TradingAccountId', '=', 1)
       .andWhere('CloseTime', '=', 0)
       .andWhere('TradeCmd', 'IN', [
         MobiusTrader.TradeCmd.BUY,
@@ -31,7 +31,7 @@ const config = require('./config');
       .execute())
       .asArray()
       .map(({
-              'AccountNumbers.CurrencyId': currencyId,
+              'TradingAccounts.CurrencyId': currencyId,
               SymbolId,
               OpenPrice,
               Profit,

@@ -19,7 +19,7 @@ const config = require('./config');
       'Swap',
     )
       .from(MobiusTrader.SEARCH_CONTEXT.Orders)
-      .where('AccountNumberId', '=', 487252)
+      .where('TradingAccountId', '=', 487252)
       .andWhere('CloseTime', '>', 0)
       .andWhere('TradeCmd', 'IN', [
         MobiusTrader.TradeCmd.BUY,

@@ -16,20 +16,20 @@ const config = require('./config');
       SessionType: MobiusTrader.SessionType.TRADER,
     });
 
-    const accountId = (
+    const clientId = (
       await mt7.search('Id')
-        .from(MobiusTrader.SEARCH_CONTEXT.Accounts)
+        .from(MobiusTrader.SEARCH_CONTEXT.Clients)
         .where('Email', '=', email)
         .limit(1)
         .execute()
     ).get('Id');
 
-    if (!accountId) {
-      throw new Error('AccountNotFound');
+    if (!clientId) {
+      throw new Error('ClientNotFound');
     }
 
     await mt7.call('PasswordSet', {
-      AccountId: Number(accountId),
+      ClientId: Number(clientId),
       Login: email,
       Password: newPassword,
       SessionType: MobiusTrader.SessionType.TRADER,
