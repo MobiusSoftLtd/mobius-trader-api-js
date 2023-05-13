@@ -1,6 +1,6 @@
 {
   "name": "mobius-trader-api",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "MobiusTrader 7 API",
   "main": "index.js",
   "homepage": "https://github.com/MobiusSoftLtd/mobius-trader-api-js#readme",
