@@ -17,23 +17,23 @@ yarn add mobius-trader-api
 import MobiusTrader from 'mobius-trader-api';
 
 const config = {
-    brokerId: 123456,
-    password: 'api_password',
+  url: 'https://mtrader7api.com/v2', 
+  token: '01234567-89ab-cdef-0123-4556789abcde',
 };
 
 async function run() {
-    const mt7 = await MobiusTrader.getInstance(config);
+  const mt7 = await MobiusTrader.getInstance(config);
 
-    const clientId = 123;
-    
-    try {
-        const info = await mt7.call('ClientGet', {
-          Id: clientId
-        });
-        console.log(info);
-    } catch (e) {
-        console.error(e);
-    }
+  const clientId = 123;
+  
+  try {
+    const info = await mt7.call('ClientGet', {
+      Id: clientId
+    });
+    console.log(info);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 run();
