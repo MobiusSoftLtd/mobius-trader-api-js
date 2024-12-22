@@ -1,6 +1,6 @@
 {
   "name": "mobius-trader-api",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "MobiusTrader 7 API",
   "main": "index.js",
   "homepage": "https://github.com/MobiusSoftLtd/mobius-trader-api-js#readme",
@@ -14,7 +14,7 @@
   "author": "Mobius Soft Ltd.",
   "license": "ISC",
   "dependencies": {
-    "jayson": "4.1.0"
+    "jayson": "4.1.3"
   },
   "keywords": [
     "mobius-trader",
